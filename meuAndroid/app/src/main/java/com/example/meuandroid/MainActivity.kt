@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -23,18 +24,30 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-           var txtFieldValue = rememberSaveable {
-               mutableStateOf("")
-           }
-           Column {
-               Text(text = "testando")
-               Text(text = "testando")
-               Text(text = "testando")
-               TextField(value = txtFieldValue.value, onValueChange = {
-                   txtFieldValue.value = it
-                   Log.i("###",it)
-               })
-           } 
+            // Var p campo de texto
+            var txtFieldValue = rememberSaveable {
+                mutableStateOf("")
+            }
+            // Var p o contador
+            var counterValue = rememberSaveable {
+                mutableStateOf(0)
+            }
+            
+            Column(modifier = Modifier.fillMaxSize()) {
+                Text(text = "Testando")
+                Text(text = "Contador: ${counterValue.value}") // Exibe o valor do contador
+                TextField(value = txtFieldValue.value, onValueChange = {
+                    txtFieldValue.value = it
+                    Log.i("###", it)
+                })
+                
+                // Botão 
+                Button(onClick = {
+                    counterValue.value += 1 // Incremento do contador
+                }) {
+                    Text(text = "Incrementar Contador")
+                }
+            }
         }
     }
 }
